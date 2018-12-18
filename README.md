@@ -52,6 +52,7 @@ Your answer to problem 1 is CORRECT. Remember to hand in your results when you f
 
 # TODO:
 - make it possible to submit to some kind of online service that allows teachers to easily see the progress of their students. 
+        One way to do this is to generate a secret key which is revealed to students as they complete the questions
 
 - make it possible to read problem input output from a file in `question.py`. This will make it possible to completely hide 
   the answer from students (low priority).
