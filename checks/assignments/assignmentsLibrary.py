@@ -11,7 +11,9 @@ from ..questionLibrary import *
 
 
 TestAssignment = Assignment(AddTwoNumbers,
-                            SubTwoNumbers, 
+                            ZipTwoLists,
+                            SubTwoNumbers,
+                            ReverseAList, 
                             DataFrameFromLists,
                             LinearRegressionWithSklearn,
                             MultiplyTwoNumbers,

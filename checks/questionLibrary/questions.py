@@ -106,7 +106,6 @@ class LinearRegressionWithSklearn(Question):
         return m.coef_
 
 
-
 class joinStringArgs(Question):
     @property 
     def markdown(self):
@@ -171,7 +170,6 @@ class AddTwoNumbers(Question):
         return x + y
 
 
-
 class MultiplyTwoNumbers(Question):
     @property    
     def markdown(self):
@@ -190,3 +188,50 @@ class MultiplyTwoNumbers(Question):
     def answer(self, x, y):
         return x * y
 
+
+class ZipTwoLists(Question):
+
+    @property 
+    def markdown(self):
+        s = """ Write a function that takes two lists `l1` and `l2` as inputs. The function must return a new list which
+        pairs the two lists element by element. In particular given sample input `l1 = [1,2,3]` and `l2 = [4,5,6]` the function
+        should return `[(1,4), (2,5), (3,6)]`.
+
+        > *Hint:* you might want to take a look at the `zip` function. Be aware that the output of zip only becomes a list 
+        if you convert it.  
+        """
+        return s 
+    
+    @property 
+    def inputs(self):
+        inp = [
+            ([1,2,3], [4,5,6]),
+            ([1,4,7,-1], [5,3,2,9]),
+            ([1],[2])
+        ]
+        return inp 
+    
+    def answer(self, l1, l2):
+        return list(zip(l1, l2))
+
+
+class ReverseAList(Question):
+
+    @property
+    def markdown(self):
+        s = """ Write a function that takes a list as input and returns the *reversed* list.
+        For example given a list `l=['s', 'd', 's', 't']` the expected output is `['t', 's', 'd', 's']`
+        """
+        return s 
+
+    @property
+    def inputs(self):
+        inp = [
+            (['a','c','e'],),
+            (['asd','de','e'],),
+            ([4,2,1],)
+        ]
+        return inp
+
+    def answer(self, l):
+        return list(reversed(l))

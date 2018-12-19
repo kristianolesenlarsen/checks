@@ -54,7 +54,7 @@ class QuestionChecker:
         problem: int
             The problem number written (this is written in the title of 
             the problem)
-        answer: function
+        useranswer: function
             A function which solves the question with problem number `problem`.
         
         Returns
@@ -75,7 +75,9 @@ class QuestionChecker:
         """
         for test in self.questions[int(problem)]():
             inp, ans, special_check = test.inputs, test.result, test.special
+            p = TestStatusPrinter(ans, useranswer, inp)
 
+            # Some questions require a special check to properly return True/False
             if not special_check:
                 check = lambda inp, ans: useranswer(*inp) == ans
             else:
@@ -83,10 +85,9 @@ class QuestionChecker:
 
             try:
                 if not check(inp, ans):
-#                if not answer(*inp) == ans:
-                    print(f'Failed test with inputs: \n {inp} \n Returned: \n {useranswer(*inp)} \n\n')
+                    p.tprint(success = False)
                     return False
-                print(f'Passed test with inputs: \n {inp} \n Returned: \n {useranswer(*inp)} \n\n')
+                p.tprint(success = True)
                                 
             except TypeError as e:
                 if not e.args: 
@@ -94,4 +95,48 @@ class QuestionChecker:
                 e.args = e.args + ('The input type your function accepts seem to differ from the expected input types',)
                 raise
         return True
+
+
+
+class TestStatusPrinter:
+    """
+    Somewhat pretty printing of submit messages
+    """
+
+    def __init__(self, answer, useranswer, inputs):
+        
+        self.inputs = str(inputs)
+        self.answer = str(answer)
+        self.useranswer = str(useranswer(*inputs))
+
+        if '\n' in self.answer \
+        or '\n' in self.useranswer:
+            self.multiline = True
+        else:
+            self.multiline = False 
+
+    def tprint(self, success):
+        """
+        Print the status of a test.
+        """
+        if success:
+            status = "Passed"
+        else: 
+            status = "Failed"
+
+        if self.multiline:
+            print("----------------------------------------\n")
+            print(f"{status} test with inputs {self.inputs}\n")
+            print("Answer produced output:\n")
+            print(self.useranswer + '\n')
+
+            if not success:
+                print("Expected output is:\n")
+                print(self.answer + '\n')
+
+        else:
+            print(f"{status} test with inputs {self.inputs}, returning {self.useranswer}")
+
+            if not success:
+                print(f"Expected output is: {self.answer}")
 
