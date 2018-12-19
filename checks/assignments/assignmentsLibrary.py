@@ -12,6 +12,7 @@ from ..questionLibrary import *
 
 TestAssignment = Assignment(AddTwoNumbers,
                             SubTwoNumbers, 
+                            DataFrameFromLists,
                             LinearRegressionWithSklearn,
                             MultiplyTwoNumbers,
                             joinStringArgs,

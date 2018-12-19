@@ -9,9 +9,10 @@ class Test:
     """
     Container for a specific test input-output
     """
-    def __init__(self, inputs, result):
+    def __init__(self, inputs, result, special_check):
         self.inputs = inputs 
         self.result = result
+        self.special = special_check
 
 
 
@@ -38,8 +39,12 @@ class Question:
         if self.i < len(self.inputs):
             inp = self.inputs[self.i]
             ans = self.answer(*inp)
+            try:
+                special = self.special_check
+            except AttributeError:
+                special = False
             self.i += 1
-            return Test(inp, ans)
+            return Test(inp, ans, special)
         else:
             raise StopIteration
 

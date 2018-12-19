@@ -33,7 +33,7 @@ from checks import AssignmentName
 Running this line imports the checker in the notebook. In TestAssignment the first question is to add two numbers: 
 
 <p align="center">
-<img src="images/testassignment.png" width = "80%">
+<img src="images/testassignment.png" width = "60%">
 </p>
 
 Students will then have to write a function to solve this problem, once they are done they can use the `@AssignmentName.submit()` decorator to validate their answer, all they need is to pass the question number so that submit knows which problem they wish to answer
@@ -59,4 +59,3 @@ Your answer to problem 1 is CORRECT. Remember to hand in your results when you f
 ## DONE: 
 - Add pre-question cell to notebook with instructions.
 
-asd

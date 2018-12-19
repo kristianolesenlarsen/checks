@@ -41,11 +41,11 @@ class QuestionChecker:
 
             @wraps(func)
             def with_answer_submission():
-                self.submit_answer(problem = problem, answer = func)
+                self.submit_answer(problem = problem, useranswer = func)
             return with_answer_submission()
         return decorator
 
-    def submit_answer(self, problem, answer):
+    def submit_answer(self, problem, useranswer):
         """
         Submit an answer. Does not hand in the submitted answer.
 
@@ -61,25 +61,33 @@ class QuestionChecker:
         -------
         Nothing
         """
-        if self._test_answer(problem = problem, answer = answer):
+        if self._test_answer(problem = problem, useranswer = useranswer):
             print(f'Your answer to problem {problem} is CORRECT. ' \
                    'Remember to hand in your results when you finish.')
         else:
             print(f'Your answer to problem {problem} is WRONG.')
 
 
-    def _test_answer(self, problem, answer):
+    def _test_answer(self, problem, useranswer):
         """
         Run through all tests associated with the problem.
         Internal.
         """
         for test in self.questions[int(problem)]():
-            inp, ans = test.inputs, test.result
+            inp, ans, special_check = test.inputs, test.result, test.special
+
+            if not special_check:
+                check = lambda inp, ans: useranswer(*inp) == ans
+            else:
+                check = lambda inp, ans: special_check(inp, ans, useranswer)
+
             try:
-                if not answer(*inp) == ans:
-                    print(f'Failed test with inputs {inp}, returned {answer(*inp)}')
+                if not check(inp, ans):
+#                if not answer(*inp) == ans:
+                    print(f'Failed test with inputs: \n {inp} \n Returned: \n {useranswer(*inp)} \n\n')
                     return False
-                print(f'Passed test with inputs {inp}, returned {answer(*inp)}')                
+                print(f'Passed test with inputs: \n {inp} \n Returned: \n {useranswer(*inp)} \n\n')
+                                
             except TypeError as e:
                 if not e.args: 
                     e.args=('',)

@@ -1,9 +1,71 @@
 """
 THIS IS WHERE YOU MAKE NEW QUESTIONS!
+
+A question is a class with a descriptive name, which inherits from Question. 
+The class must implement 
+
+Property markdown: the string that becomes the markdown cell associated with 
+    the question. 
+
+Property inputs: a list of test-inputs which the users answer is 
+    validated against.
+
+method answer: an implementation of the correct answer. 
+
+(optional) method special_check: if a simple useranswer(inputs) == correct_answer 
+    test does not evaluate to True/False you can implement a custom check here. 
+    This is for example relevant when working with pandas. 
 """
 
 from .question import Test, Question
 
+
+class DataFrameFromLists(Question):
+    @property
+    def markdown(self):
+        s = """ Write a function that takes the following arguments:
+        * An unknown number of lists, each containing floats representing the values of a variable.
+        * A list of strings, containing the column names for a table. 
+
+        For example, the function might be given a list of column names `key=['ID','year', 'age', 'income_index']
+        and _four_ other lists: [1,1,1,2,2,2], [22,23,24,32,33,34], [2000,2001,2002,2000,2001,2002], [100,110,130,100,98,74]
+
+        From these inputs the function should return a pandas DataFrame like 
+
+        | 'ID' | 'year' | 'age' | 'income_index' |
+        |------|--------|-------|----------------|
+        |   1  | 2000   | 22    |   100          |
+        |   1  | 2001   | 23    |   110          |
+        |   1  | 2001   | 24    |   130          |                
+        |   2  | 2000   | 32    |   100          |
+        |   2  | 2001   | 33    |   98           |
+        |   2  | 2001   | 44    |   74           |                
+
+        > *Hint:* you will need to understand the `*input` notation for variable length arguments. 
+        """
+        return s 
+    
+    @property
+    def inputs(self):
+        inp = [
+            (['a','b'],[1,2,3],[3,2,1]),
+            (['ID','year', 'age', 'income_index'],
+            [1,1,1,2,2,2],
+            [22,23,24,32,33,34],
+            [2000,2001,2002,2000,2001,2002],
+            [100,110,130,100,98,74])
+        ]
+        return inp
+
+    def special_check(self, inp, ans, useranswer):
+        return (useranswer(*inp) == ans).all().all()
+
+    def answer(self, keys, *values):
+        import pandas as pd
+
+        raw = {k:v for k,v in zip(keys, values)} 
+        df = pd.DataFrame(raw)
+        return df
 
 
 class LinearRegressionWithSklearn(Question):
