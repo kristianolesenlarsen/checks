@@ -2,11 +2,12 @@
 """
 Generic assignment class which can be invoked with any number of questions.
 """
-import nbformat
+import nbformat as nbf
 import os 
+import re 
 from textwrap import dedent 
 
-from ..questionChecker import QuestionChecker
+from .questionChecker import QuestionChecker
 
 
 class Assignment(QuestionChecker):
@@ -20,34 +21,45 @@ class Assignment(QuestionChecker):
         intended appearance in the final exercise set. 
     """
 
-    def __init__(self, *questions, leadmd = None, leadcode = None):
+    def __init__(self, *questions, 
+                        pass_fraction = 0.5, 
+                        leadmd = None, 
+                        leadcode = None
+                ):
+
         self.leadmd = self._clean_string(leadmd)
         self.leadcode = self._clean_string(leadcode)
+
         self.questions = {i + 1: q for i,q in enumerate(questions)}
-        super().__init__(self.questions)
+        self.correctly_ans = {k:False for k in self.questions.keys()}        
+
+        # Semi-unused
+        self.pass_fraction = pass_fraction 
+        self.user = None                
+        self.submit_hands_in = True     
 
 
     def make_notebook(self, filename):
         """
         Build the exercise notebook.
         """
-        nb = nbformat.v4.new_notebook()
+        nb = nbf.v4.new_notebook()
 
         # add lead code and markdown if they exist
         if self.leadmd is not None:
-            nb['cells'] += [nbformat.v4.new_markdown_cell(self.leadmd)]
+            nb['cells'] += [nbf.v4.new_markdown_cell(self.leadmd)]
         if self.leadcode is not None:
-            nb['cells'] += [nbformat.v4.new_code_cell(self.leadcode)]
+            nb['cells'] += [nbf.v4.new_code_cell(self.leadcode)]
 
         # add questions
         for num, question in self.questions.items():
             md = self._clean_string(self._make_markdown(num, question))
 
-            nb['cells'] += [nbformat.v4.new_markdown_cell(md), 
-                            nbformat.v4.new_code_cell(f"# [Answer to problem {num} here]")]
+            nb['cells'] += [nbf.v4.new_markdown_cell(md), 
+                            nbf.v4.new_code_cell(f"# [Answer to problem {num} here]")]
 
         print(f'Building notebook in {os.getcwd()}')
-        nbformat.write(nb, f'{filename}.ipynb')
+        nbf.write(nb, f'{filename}.ipynb')
 
 
     def _make_markdown(self, num, question):
@@ -64,3 +76,8 @@ class Assignment(QuestionChecker):
         lines = [l.strip() for l in lines]
         return '\n'.join(lines).strip()
 
+
+    def set_user(self, KU_ident):
+        if not re.match(r'[A-Za-z]{3}\d{3}', KU_ident):
+            raise ValueError(f'User ID {KU_ident} is invalid. KU ident must be 3 letters and 3 digits.')
+        self.user = KU_ident

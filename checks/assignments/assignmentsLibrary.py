@@ -6,18 +6,20 @@ Library of prefabricated assignments ready for importing
 """
 
 from .assignment import Assignment 
-from ..questionChecker import QuestionChecker
 from ..questionLibrary import *
 
 
+# ------------------------------------------------------------------------------
+# TESTASSIGNMENT 
+
 TestAssignment = Assignment(AddTwoNumbers,
-                            ZipTwoLists,
+#                            ZipTwoLists,
                             SubTwoNumbers,
                             ReverseAList, 
-                            DataFrameFromLists,
-                            LinearRegressionWithSklearn,
-                            MultiplyTwoNumbers,
-                            joinStringArgs,
+#                            DataFrameFromLists,
+#                            LinearRegressionWithSklearn,
+#                            MultiplyTwoNumbers,
+#                            joinStringArgs,
                             leadmd = """ # Test assignment 
 
                             This is a test assignment which should not be used for anything real.

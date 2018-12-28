@@ -1,7 +1,7 @@
 #%%
 from os.path import dirname, split
 
-import nbformat
+import nbf
 from nbconvert.preprocessors import (ExecutePreprocessor,
                                      CellExecutionError)
 
@@ -12,7 +12,7 @@ def run_notebook(filepath):
     Execute a notebook from disk.
     """
     with open(filepath) as f:
-        nb = nbformat.read(f, as_version = 4)
+        nb = nbf.read(f, as_version = 4)
 
     ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
 

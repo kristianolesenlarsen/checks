@@ -153,7 +153,7 @@ class SubTwoNumbers(Question):
 class AddTwoNumbers(Question):  
     @property    
     def markdown(self):
-        s = """ Write a function that adds two numbers x,y and returns the output x - y. 
+        s = """ Write a function that adds two numbers x,y and returns the output x + y. 
         Sample input might be `x=-1`, `y=8' in which case the expected output is `7`. 
         The expected output is either float or int.
         """

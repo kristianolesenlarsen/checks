@@ -1,2 +1,0 @@
-
-from .questionChecker import QuestionChecker 

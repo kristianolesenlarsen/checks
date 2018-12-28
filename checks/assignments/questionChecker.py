@@ -20,14 +20,6 @@ class QuestionChecker:
         the submitted answer on.
     """
 
-    def __init__(self, questions):
-
-        # This is temporary
-        self.questions = questions
-        self.complete = {k:False for k in self.questions.keys()}
-
-
-
     def submit(self, problem):
         """
         Submit an answer. Decorator for submit_answer. 
@@ -44,6 +36,7 @@ class QuestionChecker:
                 self.submit_answer(problem = problem, useranswer = func)
             return with_answer_submission()
         return decorator
+
 
     def submit_answer(self, problem, useranswer):
         """
@@ -62,6 +55,7 @@ class QuestionChecker:
         Nothing
         """
         if self._test_answer(problem = problem, useranswer = useranswer):
+            self.correctly_ans[problem] = True
             print(f'Your answer to problem {problem} is CORRECT. ' \
                    'Remember to hand in your results when you finish.')
         else:
@@ -95,6 +89,29 @@ class QuestionChecker:
                 e.args = e.args + ('The input type your function accepts seem to differ from the expected input types',)
                 raise
         return True
+
+
+    def progress(self, return_values = False):
+        """ Print the number of correctly answered problems 
+
+        Parameters
+        ----------
+        return_values: bool (default False)
+            Should the function return the tuple (correct answers, total questions)? 
+            (alternatively returns None)
+        """
+        total = len(self.correctly_ans)
+        correct = len({k:v for k, v in self.correctly_ans.items() if v == True})
+        print(f'You have correctly answered {correct} of {total} problems in this assignment.')
+
+        for q, s in self.correctly_ans.items():
+            if s:
+                print(f'question {q}: correct.')
+            else:
+                print(f'question {q}: wrong.')
+
+        if return_values:
+            return correct, total
 
 
 
