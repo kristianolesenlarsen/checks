@@ -13,6 +13,9 @@ from ..questionLibrary import *
 # TESTASSIGNMENT 
 
 TestAssignment = Assignment(AddTwoNumbers,
+                            PlotCurve,
+                            GetDictKeys,
+                            GetDictValues,
 #                            ZipTwoLists,
                             SubTwoNumbers,
                             ReverseAList, 

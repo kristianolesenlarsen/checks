@@ -20,6 +20,105 @@ method answer: an implementation of the correct answer.
 from .question import Test, Question
 
 
+class GetDictValues(Question):
+    
+    @property 
+    def markdown(self):
+        s = """ Write a function that takes as it's single input 
+        * Any dictionary 
+        The function should return the values of the input dictionary, in a `list`.
+
+        > *Hint:* be aware that many of the build in dictionary methods returns special
+        containers that look like lists, but are in fact not. If you need to you can
+        convert your result to a list using the `list()` buildin function.
+        """
+        return s 
+
+    @property
+    def inputs(self):
+        inp = [
+            ({'a':1, 'b':2, 'c':3, 'd':4}),
+            ({1:'a', 2:'b', 3:'c', 4:'d'}),
+            ({}),
+            ({'Key':'value'})
+        ]
+        return inp 
+
+    def answer(self, dictionary):
+        return list(dictionary.values())
+
+
+class GetDictKeys(Question):
+    
+    @property 
+    def markdown(self):
+        s = """ Write a function that takes as it's single input 
+        * Any dictionary 
+        The function should return the keys of the input dictionary, in a `list`.
+
+        > *Hint:* be aware that many of the build in dictionary methods returns special
+        containers that look like lists, but are in fact not. If you need to you can
+        convert your result to a list using the `list()` buildin function.
+        """
+        return s 
+
+    @property
+    def inputs(self):
+        inp = [
+            ({'a':1, 'b':2, 'c':3, 'd':4}),
+            ({1:'a', 2:'b', 3:'c', 4:'d'}),
+            ({}),
+            ({'Key':value})
+        ]
+        return inp 
+
+    def answer(self, dictionary):
+        return list(dictionary.keys())
+
+
+class PlotCurve(Question):
+    @property
+    def markdown(self):
+        s = """ Write a function that takes the following two inputs:
+            * a list `x` of length N containing floats.
+            * a list `y` of length N containing floats.
+
+        Given the two lists, write a function that uses matplotlib to plot a curve
+        with `x` on the first axis and `y` on the 2nd axis using `plt.plot()`. Add
+        on top of this a set of scatter-points with the same coordinates as the line. 
+
+        > *Hint:* Don't show the figure within the function body. To properly wrap 
+        matplotlib code in a function simply `return plt` at the end of the function. I.e.
+        ```
+        def somePlot(x,y):
+            # [Matplotlib code]            
+            plt.plot(...)
+            # [/Matplotlib code]
+            return plt
+        ```
+        """
+        return s 
+
+    @property
+    def inputs(self):
+        inp = [
+            ([1,2,3,4,5], [2,4,9,16,25]),
+            ([2,4,6,8,10], [1,3,5,7,9])
+        ]
+        return inp
+
+    def answer(self, x, y):
+        import matplotlib.pyplot as plt 
+
+        if not len(x) == len(y):
+            return None
+
+        plt.plot(x,y)
+        plt.scatter(x,y)
+
+        return plt
+
+
 class DataFrameFromLists(Question):
     @property
     def markdown(self):

@@ -1,4 +1,8 @@
-This package can be used to automatically generate code-writing assignments in jupyter notebook. The package is based on an extendable library of pre written problems, and implements checks for students to assess if they have answered the problem correctly as well as methods for submitting the answers to a central scoring platform (not ready yet). 
+
+The ultimate goal of checks is to provide a tool to generate notebook-based assignments which support automatic evaluation of students answers without requiring code-execution outside of the students own machine. Secondary goals is that it should be easy to use both for teachers and students, so 
+
+* Creating new assignments should be easy. So should adding new questions to the library. 
+* Students must be able to complete their assignment, transparently track their progress and hand in their results all within the notebook. 
 
 ## Building an assignment
 To build an assignment it must first be constructed. As of now this is done in assignmentsLibrary.py, where there is 

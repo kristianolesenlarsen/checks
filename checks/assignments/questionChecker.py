@@ -8,7 +8,8 @@ from functools import wraps
 
 class QuestionChecker:
     """
-    Check if a question is correctly answered.
+    Check if a question is correctly answered. Only used as superclass for 
+    Assignment in assignment.py!
 
     Parameters
     ----------
@@ -55,10 +56,23 @@ class QuestionChecker:
         Nothing
         """
         if self._test_answer(problem = problem, useranswer = useranswer):
-            self.correctly_ans[problem] = True
+            if not self.correctly_ans[problem] == True:
+                self.correctly_ans[problem] = True
+                self.progress(newline = True)
+                
+                # if self.submit_after_each_question:
+                #     print('Submit this answer to the web (Y/n)')
+                #     send = input()
+                # if v == 'Y':
+                #     print('asd')
+                # else:
+                #     print('Question not submitted')
+                # This is where we should do some online-stuff
+
             print(f'Your answer to problem {problem} is CORRECT. ' \
                    'Remember to hand in your results when you finish.')
         else:
+            self.correctly_ans[problem] = False
             print(f'Your answer to problem {problem} is WRONG.')
 
 
@@ -91,7 +105,7 @@ class QuestionChecker:
         return True
 
 
-    def progress(self, return_values = False):
+    def progress(self, return_values = False, newline = False):
         """ Print the number of correctly answered problems 
 
         Parameters
@@ -102,13 +116,20 @@ class QuestionChecker:
         """
         total = len(self.correctly_ans)
         correct = len({k:v for k, v in self.correctly_ans.items() if v == True})
+
+        if newline:
+            print('\n')
         print(f'You have correctly answered {correct} of {total} problems in this assignment.')
 
         for q, s in self.correctly_ans.items():
-            if s:
+            if s == True:
                 print(f'question {q}: correct.')
-            else:
+            elif s == False:
                 print(f'question {q}: wrong.')
+            else:
+                print(f'question {q}: unanswered.')               
+        if newline:
+            print('\n')
 
         if return_values:
             return correct, total

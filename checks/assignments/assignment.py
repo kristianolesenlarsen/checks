@@ -22,7 +22,6 @@ class Assignment(QuestionChecker):
     """
 
     def __init__(self, *questions, 
-                        pass_fraction = 0.5, 
                         leadmd = None, 
                         leadcode = None
                 ):
@@ -31,12 +30,11 @@ class Assignment(QuestionChecker):
         self.leadcode = self._clean_string(leadcode)
 
         self.questions = {i + 1: q for i,q in enumerate(questions)}
-        self.correctly_ans = {k:False for k in self.questions.keys()}        
+        self.correctly_ans = {k: None for k in self.questions.keys()}        
 
         # Semi-unused
-        self.pass_fraction = pass_fraction 
         self.user = None                
-        self.submit_hands_in = True     
+        self.submit_after_each_question = True     
 
 
     def make_notebook(self, filename):
@@ -81,3 +79,6 @@ class Assignment(QuestionChecker):
         if not re.match(r'[A-Za-z]{3}\d{3}', KU_ident):
             raise ValueError(f'User ID {KU_ident} is invalid. KU ident must be 3 letters and 3 digits.')
         self.user = KU_ident
+
+
+
