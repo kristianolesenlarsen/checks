@@ -20,6 +20,36 @@ method answer: an implementation of the correct answer.
 from .question import Test, Question
 
 
+class regexGetDigits(Question):
+
+    @property
+    def markdown(self):
+        s = """ Write a function that takes as input
+        * A string `s`
+        The functions should use a regex to look up any digits (0-9) in the string
+        and returns a new string containing a comma-separated list of digits. For
+        example the input string `'Pick no.1, no.2 or no.3 please'` should return 
+        the string '1,2,3'. 
+
+        > *Hint:* take a look at the `re` module. 
+        """
+
+        return s 
+
+    @property
+    def inputs(self):
+        inp = [
+            ('My phone number is 13 12 13 37'),
+            ('There are 7 billion people in the world'),
+            ('H3ll0 Th3r3')
+        ]
+
+    def answer(self, s):
+        import re 
+        hits = re.findall('\d', s)
+        return ','.join(hits)
+
+
 class GetDictValues(Question):
     
     @property 

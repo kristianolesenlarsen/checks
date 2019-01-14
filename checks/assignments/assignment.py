@@ -26,8 +26,14 @@ class Assignment(QuestionChecker):
                         leadcode = None
                 ):
 
-        self.leadmd = self._clean_string(leadmd)
-        self.leadcode = self._clean_string(leadcode)
+        self.leadmd = leadmd 
+        self.leadcode = leadcode
+
+        if self.leadmd is not None:
+            self.leadmd = self._clean_string(leadmd)
+            
+        if self.leadcode is not None:
+            self.leadcode = self._clean_string(leadcode)
 
         self.questions = {i + 1: q for i,q in enumerate(questions)}
         self.correctly_ans = {k: None for k in self.questions.keys()}        
