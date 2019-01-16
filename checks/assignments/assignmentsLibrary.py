@@ -66,6 +66,9 @@ PreCourseAssignment = Assignment(
                             called `checks` from here: 
                             [https://github.com/Kristianuruplarsen/checks](https://github.com/Kristianuruplarsen/checks)
 
+                            > **Note:** The `checks` package is in very early development so dont worry if 
+                            you can't get it to work. We will accept submissions if they dont use the automated checking.
+
                             To install the package simply run the following in your terminal:
                             ```
                             pip install git+https://github.com/Kristianuruplarsen/checks
@@ -79,9 +82,9 @@ PreCourseAssignment = Assignment(
                             ```
                             PreCourseAssignment.submit(problem = 1)
                             def add(x,y):
-                                # Code here
-                                return result
+                            # ... Code here
                             ```
                             For a more thorough introduction to the `checks` package refer to the git repo.
-                            """
+                            """,
+                            leadcode = "from checks import PreCourseAssignment"
                             )

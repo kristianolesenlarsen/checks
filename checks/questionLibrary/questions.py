@@ -26,6 +26,7 @@ class regexGetDigits(Question):
     def markdown(self):
         s = """ Write a function that takes as input
         * A string `s`
+
         The functions should use a regex to look up any digits (0-9) in the string
         and returns a new string containing a comma-separated list of digits. For
         example the input string `'Pick no.1, no.2 or no.3 please'` should return 
@@ -39,9 +40,9 @@ class regexGetDigits(Question):
     @property
     def inputs(self):
         inp = [
-            ('My phone number is 13 12 13 37'),
-            ('There are 7 billion people in the world'),
-            ('H3ll0 Th3r3')
+            ('My phone number is 13 12 13 37',),
+            ('There are 7 billion people in the world',),
+            ('H3ll0 Th3r3',)
         ]
 
     def answer(self, s):
@@ -56,6 +57,7 @@ class GetDictValues(Question):
     def markdown(self):
         s = """ Write a function that takes as it's single input 
         * Any dictionary 
+
         The function should return the values of the input dictionary, in a `list`.
 
         > *Hint:* be aware that many of the build in dictionary methods returns special
@@ -67,10 +69,10 @@ class GetDictValues(Question):
     @property
     def inputs(self):
         inp = [
-            ({'a':1, 'b':2, 'c':3, 'd':4}),
-            ({1:'a', 2:'b', 3:'c', 4:'d'}),
-            ({}),
-            ({'Key':'value'})
+            ({'a':1, 'b':2, 'c':3, 'd':4},),
+            ({1:'a', 2:'b', 3:'c', 4:'d'},),
+            ({},),
+            ({'Key':'value'},)
         ]
         return inp 
 
@@ -84,6 +86,7 @@ class GetDictKeys(Question):
     def markdown(self):
         s = """ Write a function that takes as it's single input 
         * Any dictionary 
+
         The function should return the keys of the input dictionary, in a `list`.
 
         > *Hint:* be aware that many of the build in dictionary methods returns special
@@ -95,10 +98,10 @@ class GetDictKeys(Question):
     @property
     def inputs(self):
         inp = [
-            ({'a':1, 'b':2, 'c':3, 'd':4}),
-            ({1:'a', 2:'b', 3:'c', 4:'d'}),
-            ({}),
-            ({'Key':value})
+            ({'a':1, 'b':2, 'c':3, 'd':4},),
+            ({1:'a', 2:'b', 3:'c', 4:'d'},),
+            ({},),
+            ({'Key':'value'},)
         ]
         return inp 
 
@@ -119,6 +122,7 @@ class PlotCurve(Question):
 
         > *Hint:* Don't show the figure within the function body. To properly wrap 
         matplotlib code in a function simply `return plt` at the end of the function. I.e.
+
         ```
         def somePlot(x,y):
             # [Matplotlib code]            
@@ -283,7 +287,7 @@ class AddTwoNumbers(Question):
     @property    
     def markdown(self):
         s = """ Write a function that adds two numbers x,y and returns the output x + y. 
-        Sample input might be `x=-1`, `y=8' in which case the expected output is `7`. 
+        Sample input might be `x=-1`, `y=8` in which case the expected output is `7`. 
         The expected output is either float or int.
         """
         return s 
