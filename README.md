@@ -4,6 +4,23 @@ The ultimate goal of checks is to provide a tool to generate notebook-based assi
 * Creating new assignments should be easy. So should adding new questions to the library. 
 * Students must be able to complete their assignment, transparently track their progress and hand in their results all within the notebook. 
 
+## Using checks as a student
+Begin by installing the `checks` package from github, this should work by running 
+```
+pip install git+https://github.com/Kristianuruplarsen/checks
+```
+In the notebook containing the exercises then import the relevant assignment from checks
+```python
+from checks import PreCourseAssignment
+``` 
+Now to use the checker wrap the answers in the `@PreCourseAssignment.submit` decorator. The full code to answer question 1 would thus be
+```python
+@PreCourseAssignment.submit(problem = 1)
+def myanswer(x,y):
+        return x + y
+```
+which should give some text output informing you that the question was answered correctly (i'm working on automatically sending this data along with student ID's to a database of some sort). 
+
 ## Building an assignment
 To build an assignment it must first be constructed. As of now this is done in assignmentsLibrary.py, where there is 
 already one assignment constructed:
