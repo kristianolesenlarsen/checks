@@ -3,3 +3,4 @@
 *.pyc
 *.ipynb
 *.cpython-36.pyc
+*.json

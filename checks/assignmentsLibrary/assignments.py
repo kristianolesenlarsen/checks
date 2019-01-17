@@ -5,7 +5,7 @@ THIS IS WHERE YOU SET UP NEW ASSIGNMENTS!
 Library of prefabricated assignments ready for importing
 """
 
-from .assignment import Assignment 
+from ..assignment import Assignment 
 from ..questionLibrary import *
 
 

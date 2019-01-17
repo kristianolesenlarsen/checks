@@ -30,7 +30,7 @@ class regexGetDigits(Question):
         The functions should use a regex to look up any digits (0-9) in the string
         and returns a new string containing a comma-separated list of digits. For
         example the input string `'Pick no.1, no.2 or no.3 please'` should return 
-        the string '1,2,3'. 
+        the string `'1,2,3'`. 
 
         > *Hint:* take a look at the `re` module. 
         """
@@ -58,7 +58,7 @@ class GetDictValues(Question):
         s = """ Write a function that takes as it's single input 
         * Any dictionary 
 
-        The function should return the values of the input dictionary, in a `list`.
+        The function should return the **values** of the input dictionary, in a `list`.
 
         > *Hint:* be aware that many of the build in dictionary methods returns special
         containers that look like lists, but are in fact not. If you need to you can
@@ -87,7 +87,7 @@ class GetDictKeys(Question):
         s = """ Write a function that takes as it's single input 
         * Any dictionary 
 
-        The function should return the keys of the input dictionary, in a `list`.
+        The function should return the **keys** of the input dictionary, in a `list`.
 
         > *Hint:* be aware that many of the build in dictionary methods returns special
         containers that look like lists, but are in fact not. If you need to you can
@@ -216,7 +216,8 @@ class LinearRegressionWithSklearn(Question):
     > *Hint:* we expect the output from the .coef_ attribute of the fitted 
     model object.
     > 
-    > *Hint:* Your function will be tested with 1-dimensional X input. You might want to investigate how scikit learn handles this."""
+    > *Hint:* Your function will be tested with 1-dimensional X input. You might want to investigate how you can handle this 
+    in scikit-learn"""
         return s
 
     @property

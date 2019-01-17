@@ -5,11 +5,11 @@ Generic assignment class which can be invoked with any number of questions.
 import nbformat as nbf
 import os 
 import re 
-from textwrap import dedent 
 
 from .questionChecker import QuestionChecker
 
 
+# Inheritance is purely for code segmentation for now (rework?)
 class Assignment(QuestionChecker):
     """
     Generic assignment
@@ -36,7 +36,7 @@ class Assignment(QuestionChecker):
             self.leadcode = self._clean_string(leadcode)
 
         self.questions = {i + 1: q for i,q in enumerate(questions)}
-        self.correctly_ans = {k: None for k in self.questions.keys()}        
+        self.correctly_ans = {k: None for k in self.questions.keys()}
 
         # Semi-unused
         self.user = None                
@@ -81,10 +81,12 @@ class Assignment(QuestionChecker):
         return '\n'.join(lines).strip()
 
 
-    def set_user(self, KU_ident):
-        if not re.match(r'[A-Za-z]{3}\d{3}', KU_ident):
-            raise ValueError(f'User ID {KU_ident} is invalid. KU ident must be 3 letters and 3 digits.')
-        self.user = KU_ident
+    def setup(self, ku_ident):
+        # TODO: This check should also verify that the KU id is in the database
+        if not re.match(r'[A-Za-z]{3}\d{3}', ku_ident):
+            raise ValueError(f'User ID {ku_ident} is invalid. KU ident must be 3 letters and 3 digits.')
+        self.user = ku_ident
 
+        return self
 
 
