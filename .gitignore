@@ -4,3 +4,5 @@
 *.ipynb
 *.cpython-36.pyc
 *.json
+test_client
+test_client/*
