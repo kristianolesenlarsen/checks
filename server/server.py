@@ -1,3 +1,9 @@
+
+"""
+Simple Flask rest-api that can read/write to a dictionary stored permanently
+in a pickle-file. Very WIP
+"""
+
 from flask import Flask
 from flask_restful import Api, Resource, reqparse
 

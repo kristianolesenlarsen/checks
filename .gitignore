@@ -6,3 +6,5 @@
 *.json
 test_client
 test_client/*
+
+*.pckl

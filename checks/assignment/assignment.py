@@ -81,7 +81,7 @@ class Assignment(QuestionChecker):
         return '\n'.join(lines).strip()
 
 
-    def setup(self, ku_ident):
+    def setup(self, ku_ident, server_ip):
         # TODO: This check should also verify that the KU id is in the database
         if not re.match(r'[A-Za-z]{3}\d{3}', ku_ident):
             raise ValueError(f'User ID {ku_ident} is invalid. KU ident must be 3 letters and 3 digits.')
