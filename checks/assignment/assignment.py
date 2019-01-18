@@ -5,6 +5,7 @@ Generic assignment class which can be invoked with any number of questions.
 import nbformat as nbf
 import os 
 import re 
+from requests import get, post
 
 from .questionChecker import QuestionChecker
 
@@ -36,7 +37,7 @@ class Assignment(QuestionChecker):
             self.leadcode = self._clean_string(leadcode)
 
         self.questions = {i + 1: q for i,q in enumerate(questions)}
-        self.correctly_ans = {k: None for k in self.questions.keys()}
+        self.correctly_ans = {k: None for k in self.questions.keys()}          
 
         # Semi-unused
         self.user = None                
@@ -82,11 +83,38 @@ class Assignment(QuestionChecker):
 
 
     def setup(self, ku_ident, server_ip):
-        # TODO: This check should also verify that the KU id is in the database
-        if not re.match(r'[A-Za-z]{3}\d{3}', ku_ident):
-            raise ValueError(f'User ID {ku_ident} is invalid. KU ident must be 3 letters and 3 digits.')
+        # TODO: This check should also verify that the KU id is in the database        
+        self._check_id_with_re(ku_ident)
+
+        # student_exists = get(f"http://{server_ip}/student/{ku_ident}")
+        # if not student_exists.ok:
+        #     raise ValueError(f"Student ID {ku_ident} not in server database.")
+
+        # progress = student_exists.json()
+        progress = self._student_in_database(ku_ident, server_ip)
+        self.correctly_ans =  {int(k): bool(v) for k,v in dict(progress).items()}  # Overwrite status if connected to the server.
+
+        correct = ', '.join([k for k,v in progress.items() if v])
+
         self.user = ku_ident
+        self.server = server_ip
+
+        print(f"Set up checker for student {ku_ident}")
+        if len(correct)>1:
+            print(f"You have correctly answered: {correct}")
 
         return self
 
+
+    def _check_id_with_re(self, ident):
+        if not re.match(r'[A-Za-z]{3}\d{3}', ident):
+            raise ValueError(f'User ID {ident} is invalid. KU ident must be 3 letters and 3 digits.')
+
+
+    def _student_in_database(self, student_id, server_ip):
+        student_exists = get(f"http://{server_ip}/student/{student_id}")
+
+        if not student_exists.ok:
+            raise ValueError(f"Student ID {student_id} not in server database.")
+        return student_exists.json()        
 

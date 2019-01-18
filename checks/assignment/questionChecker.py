@@ -5,6 +5,7 @@ considered correct.
 """
 
 from functools import wraps
+from requests import post
 
 class QuestionChecker:
     """
@@ -60,14 +61,14 @@ class QuestionChecker:
                 self.correctly_ans[problem] = True
                 self.progress(newline = True)
                 
-                # if self.submit_after_each_question:
-                #     print('Submit this answer to the web (Y/n)')
-                #     send = input()
-                # if v == 'Y':
-                #     print('asd')
-                # else:
-                #     print('Question not submitted')
-                # This is where we should do some online-stuff
+                # THIS IS WHERE WE SHOULD LINK INTO THE RASPBERRY PI
+                # http://{self.server}/student/{self.user}
+
+                r = post(f"http://{self.server}/student/{self.user}", data = {'ident': self.user, 'problem': problem, 'status': 'True'})
+
+                if not r.ok:
+                    print(f"An error occured when pushing to the server. Is http://{self.server}/student/{self.user} a valid URL?")
+
 
             print(f'Your answer to problem {problem} is CORRECT. ' \
                    'Remember to hand in your results when you finish.')
