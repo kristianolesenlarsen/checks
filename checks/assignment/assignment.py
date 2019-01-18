@@ -82,24 +82,29 @@ class Assignment(QuestionChecker):
         return '\n'.join(lines).strip()
 
 
-    def setup(self, ku_ident, server_ip):
-        # TODO: This check should also verify that the KU id is in the database        
-        self._check_id_with_re(ku_ident)
+    def setup(self, ident, server_ip):
+        """ Set up an assignment session to work with the server.
 
-        # student_exists = get(f"http://{server_ip}/student/{ku_ident}")
-        # if not student_exists.ok:
-        #     raise ValueError(f"Student ID {ku_ident} not in server database.")
+        Parameters
+        ----------
+        ident: str
+            A student id, it is hard coded to comply 
+            with the UCPH id format AAADDD.
+        server_ip: str
+            The ip of the Pi, including port.
+        """
 
-        # progress = student_exists.json()
-        progress = self._student_in_database(ku_ident, server_ip)
+        self._check_id_with_re(ident)
+
+        progress = self._student_in_database(ident, server_ip)
         self.correctly_ans =  {int(k): bool(v) for k,v in dict(progress).items()}  # Overwrite status if connected to the server.
 
         correct = ', '.join([k for k,v in progress.items() if v])
 
-        self.user = ku_ident
+        self.user = ident
         self.server = server_ip
 
-        print(f"Set up checker for student {ku_ident}")
+        print(f"Set up checker for student {ident}")
         if len(correct)>1:
             print(f"You have correctly answered: {correct}")
 
