@@ -19,7 +19,24 @@ Now to use the checker wrap the answers in the `@PreCourseAssignment.submit` dec
 def myanswer(x,y):
         return x + y
 ```
-which should give some text output informing you that the question was answered correctly (i'm working on automatically sending this data along with student ID's to a database of some sort). 
+which should give some text output informing you that the question was answered correctly. 
+
+### Submitting to the server 
+For now the server that registers users is a simple flask script which can be run on a Paspberry Pi (or any other local pc). I imagine bringing the Pi to a class and asking students to hand in during the session. Assuming the Pi is setup in your local network, move the scripts in the folder *server* onto it. Run both of them. 
+
+As when used locally we begin by importing the assignment, but to work with the server we need to supply some additional information: 
+```python
+from checks import PreCourseAssignment
+A = PreCourseAssignment.setup(ident = 'asd123', server_ip = '1.2.3.4:5')
+```
+Just like when offline we can now submit answers to the server by running 
+```python 
+@A.submit(1)
+def add(x,y):
+    return x + y
+```
+which pushes the students status to the server. On the server a little dash app can be set up to auto update a barchart showing the progress of each student. 
+
 
 ## Building an assignment
 To build an assignment it must first be constructed. As of now this is done in assignmentsLibrary.py, where there is 
