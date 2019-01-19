@@ -39,10 +39,10 @@ class Assignment(QuestionChecker):
         self.questions = {i + 1: q for i,q in enumerate(questions)}
         self.correctly_ans = {k: None for k in self.questions.keys()}          
 
-        # Semi-unused
-        self.user = None                
-        self.submit_after_each_question = True     
-
+        # For server com
+        self.online = False
+        self.user = None
+        self.server = None
 
     def make_notebook(self, filename):
         """
@@ -101,6 +101,7 @@ class Assignment(QuestionChecker):
 
         correct = ', '.join([k for k,v in progress.items() if v])
 
+        self.online = True
         self.user = ident
         self.server = server_ip
 

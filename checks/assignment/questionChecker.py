@@ -62,12 +62,10 @@ class QuestionChecker:
                 self.progress(newline = True)
                 
                 # THIS IS WHERE WE SHOULD LINK INTO THE RASPBERRY PI
-                # http://{self.server}/student/{self.user}
-
-                r = post(f"http://{self.server}/student/{self.user}", data = {'ident': self.user, 'problem': problem, 'status': 'True'})
-
-                if not r.ok:
-                    print(f"An error occured when pushing to the server. Is http://{self.server}/student/{self.user} a valid URL?")
+                if self.online:
+                    r = post(f"http://{self.server}/student/{self.user}", data = {'ident': self.user, 'problem': problem, 'status': 'True'})
+                    if not r.ok:
+                        print(f"An error occured when pushing to the server. Is http://{self.server}/student/{self.user} a valid URL?")
 
 
             print(f'Your answer to problem {problem} is CORRECT. ')
