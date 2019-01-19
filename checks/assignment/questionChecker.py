@@ -70,8 +70,7 @@ class QuestionChecker:
                     print(f"An error occured when pushing to the server. Is http://{self.server}/student/{self.user} a valid URL?")
 
 
-            print(f'Your answer to problem {problem} is CORRECT. ' \
-                   'Remember to hand in your results when you finish.')
+            print(f'Your answer to problem {problem} is CORRECT. ')
         else:
             self.correctly_ans[problem] = False
             print(f'Your answer to problem {problem} is WRONG.')

@@ -2,6 +2,7 @@
 *__pycache__*
 *.pyc
 *.ipynb
+!PreCourseAssignment.ipynb
 *.cpython-36.pyc
 *.json
 test_client

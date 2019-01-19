@@ -44,6 +44,7 @@ class regexGetDigits(Question):
             ('There are 7 billion people in the world',),
             ('H3ll0 Th3r3',)
         ]
+        return inp
 
     def answer(self, s):
         import re 

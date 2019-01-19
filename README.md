@@ -63,6 +63,11 @@ from checks import TestAssignment
 TestAssignment.make_notebook('filename')
 ```
 
+## Things to set up before use
+- make an assignment and make sure everybody updates the package
+- manually add the student ID's and number of problems to the plotstatus.py file (temp)
+- remove any existing pickle file
+
 
 # TODO:
 - make it possible to submit to some kind of online service that allows teachers to easily see the progress of their students. 
