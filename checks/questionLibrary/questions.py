@@ -19,6 +19,77 @@ method answer: an implementation of the correct answer.
 
 from .question import Test, Question
 
+class CountLetterInString(Question):
+    @property
+    def markdown(self):
+         s = """ Write a function that takes two arguments
+         * `s` an arbitrary string.
+         * `l` a letter (i.e. any valid single character).
+
+         The function should search the string for occurences of the letter and 
+         return an integer indicating how many times the letter `l` occurs in the string `s`.
+
+         > **Note**: Your function should be *case-insensitive*, i.e. it shouldn't care if the letter is "H" or "h"
+         """
+         return s 
+
+    @property
+    def inputs(self):
+        inp = [
+            ('Hello darkness my old friend', 'o'),
+            ("There are three t's in transportation", 't'),
+            ('This sentence test students ability to count to ten', 't')
+        ]
+        return inp
+
+    def answer(self, s, l):
+        letters = [x for x in s if x.lower() == l.lower()]
+        return len(letters)
+
+
+
+class MergeDataFrames(Question):
+    @property 
+    def markdown(self):
+        s = """ Write a function that takes two pandas dataframes, and a key for merging as inputs. That is 
+        * `df1` A pandas dataframe 
+        * `df2` Another pandas dataframe 
+        * `key` A list of key variables to use for merging. 
+
+        The function should merge the two dataframes using a left-join and return the resulting dataframe.
+        """
+        return s 
+
+    @property 
+    def inputs(self):
+        import pandas as pd 
+
+        A = pd.DataFrame({'key1': [1,1,2,2,3,3],
+                          'key2': [1,2,3,4,5,6],
+                          'valA': [9,9,9,9,9,9]})
+        B = pd.DataFrame({'key1': [1,1,2,2,3,3],
+                          'key2': [1,2,3,4,5,6],
+                          'valB': [8,8,8,8,8,8]})
+
+        inp = [
+            (A,B, ['key1']),
+            (A,B, ['key2']),
+            (A,B, ['key1', 'key2'])
+        ]
+        return inp 
+
+
+    def special_check(self, inp, ans, useranswer):
+        return (useranswer(*inp) == ans).all().all()
+
+
+    def answer(self, df1, df2, key):
+        import pandas as pd 
+        result = pd.merge(df1, df2, on = key, how = 'left')
+        return result
+
+
+
 
 class regexGetDigits(Question):
 
