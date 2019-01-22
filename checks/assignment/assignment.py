@@ -8,7 +8,7 @@ import re
 from requests import get, post
 
 from .questionChecker import QuestionChecker
-
+from .resultMessager import ResultMessenger
 
 # Inheritance is purely for code segmentation for now (rework?)
 class Assignment(QuestionChecker):
@@ -41,8 +41,9 @@ class Assignment(QuestionChecker):
 
         # For server com
         self.online = False
+        self.conn = None
         self.user = None
-        self.server = None
+        self.ip = None
 
     def make_notebook(self, filename):
         """
@@ -82,45 +83,64 @@ class Assignment(QuestionChecker):
         return '\n'.join(lines).strip()
 
 
-    def setup(self, ident, server_ip):
-        """ Set up an assignment session to work with the server.
+    def setup(self, user, ip):
+        self.conn = ResultMessenger(user, ip)
+        self.online = True
 
-        Parameters
-        ----------
-        ident: str
-            A student id, it is hard coded to comply 
-            with the UCPH id format AAADDD.
-        server_ip: str
-            The ip of the Pi, including port.
-        """
+        # self.user = user
+        # self.ip = ip
 
-        self._check_id_with_re(ident)
-
-        progress = self._student_in_database(ident, server_ip)
-        self.correctly_ans =  {int(k): bool(v) for k,v in dict(progress).items()}  # Overwrite status if connected to the server.
-
+        # Print which problems have already been answered and submitted
+        progress = self.conn.get_full_status()
         correct = ', '.join([k for k,v in progress.items() if v])
 
-        self.online = True
-        self.user = ident
-        self.server = server_ip
-
-        print(f"Set up checker for student {ident}")
+        print(f"Set up checker for student {user}")
         if len(correct)>1:
             print(f"You have correctly answered: {correct}")
 
         return self
 
 
-    def _check_id_with_re(self, ident):
-        if not re.match(r'[A-Za-z]{3}\d{3}', ident):
-            raise ValueError(f'User ID {ident} is invalid. KU ident must be 3 letters and 3 digits.')
+
+    # def depr_setup(self, user, ip):
+    #     """ Set up an assignment session to work with the server.
+
+    #     Parameters
+    #     ----------
+    #     user: str
+    #         A student id, it is hard coded to comply 
+    #         with the UCPH id format AAADDD.
+    #     ip: str
+    #         The ip of the Pi, including port.
+    #     """
+        
+    #     self._check_id_with_re(user)
+
+    #     progress = self._student_in_database(user, ip)
+    #     self.correctly_ans =  {int(k): bool(v) for k,v in dict(progress).items()}  # Overwrite status if connected to the ip.
+
+    #     correct = ', '.join([k for k,v in progress.items() if v])
+
+    #     self.online = True
+    #     self.user = user
+    #     self.ip = ip
+
+    #     print(f"Set up checker for student {user}")
+    #     if len(correct)>1:
+    #         print(f"You have correctly answered: {correct}")
+
+    #     return self
 
 
-    def _student_in_database(self, student_id, server_ip):
-        student_exists = get(f"http://{server_ip}/student/{student_id}")
+    # def depr_check_id_with_re(self, ident):
+    #     if not re.match(r'[A-Za-z]{3}\d{3}', ident):
+    #         raise ValueError(f'User ID {ident} is invalid. KU ident must be 3 letters and 3 digits.')
 
-        if not student_exists.ok:
-            raise ValueError(f"Student ID {student_id} not in server database.")
-        return student_exists.json()        
+
+    # def depr_student_in_database(self, ident, ip):
+    #     student_exists = get(f"http://{ip}/student/{ident}")
+
+    #     if not student_exists.ok:
+    #         raise ValueError(f"Student ID {ident} not in ip database.")
+    #     return student_exists.json()        
 

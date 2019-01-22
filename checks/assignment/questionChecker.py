@@ -4,6 +4,8 @@ This is where we check if an answer passes all the checks required to be
 considered correct.
 """
 
+# TODO: Test reworked connection method with Pi
+
 from functools import wraps
 from requests import post
 
@@ -61,11 +63,8 @@ class QuestionChecker:
                 self.correctly_ans[problem] = True
                 self.progress(newline = True)
                 
-                # THIS IS WHERE WE SHOULD LINK INTO THE RASPBERRY PI
                 if self.online:
-                    r = post(f"http://{self.server}/student/{self.user}", data = {'ident': self.user, 'problem': problem, 'status': 'True'})
-                    if not r.ok:
-                        print(f"An error occured when pushing to the server. Is http://{self.server}/student/{self.user} a valid URL?")
+                    self.conn.send_answer_to_db(problem, True)
 
 
             print(f'Your answer to problem {problem} is CORRECT. ')
