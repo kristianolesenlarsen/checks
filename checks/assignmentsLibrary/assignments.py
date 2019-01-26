@@ -36,7 +36,7 @@ TestAssignment = Assignment(AddTwoNumbers,
 # ------------------------------------------------------------------------------
 # TESTASSIGNMENT 
 
-PreCourseAssignment = Assignment(
+Assignment0 = Assignment(
                             AddTwoNumbers,
                             GetDictKeys,
                             CountLetterInString,
@@ -58,7 +58,8 @@ PreCourseAssignment = Assignment(
 
 
                             ### Practical info
-                            * Handin no later than XXXX 
+                            * Handin no later than at the first exercise class.
+                            * When done pleases upload your answer on absalon.
                             * Feel free to colaborate, but upload one notebook per student.
 
                             ### Code validation
@@ -76,16 +77,16 @@ PreCourseAssignment = Assignment(
                             ```
                             After doing this you should be able to simply run
                             ```
-                            from checks import PreCourseAssignment
+                            from checks import Assignment0
                             ```
-                            after which you can decorate your answers in the following way to 
+                            after which you can decorate (*hint:* read [here](http://book.pythontips.com/en/latest/decorators.html)) your answers in the following way to 
                             get instant validation of your answers: 
                             ```
-                            PreCourseAssignment.submit(problem = 1)
+                            @Assignment0.submit(problem = 1)
                             def add(x,y):
                             # ... Code here
                             ```
                             For a more thorough introduction to the `checks` package refer to the git repo.
                             """,
-                            leadcode = "from checks import PreCourseAssignment"
+                            leadcode = "from checks import Assignment0"
                             )
