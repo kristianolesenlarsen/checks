@@ -11,11 +11,11 @@ pip install git+https://github.com/Kristianuruplarsen/checks
 ```
 In the notebook containing the exercises then import the relevant assignment from checks
 ```python
-from checks import PreCourseAssignment
+from checks import Assignment0
 ``` 
-Now to use the checker wrap the answers in the `@PreCourseAssignment.submit` decorator. The full code to answer question 1 would thus be
+Now to use the checker wrap the answers in the `@Assignment0.submit` decorator. The full code to answer question 1 would thus be
 ```python
-@PreCourseAssignment.submit(problem = 1)
+@Assignment0.submit(problem = 1)
 def myanswer(x,y):
         return x + y
 ```
@@ -26,8 +26,8 @@ For now the server that registers users is a simple flask script which can be ru
 
 As when used locally we begin by importing the assignment, but to work with the server we need to supply some additional information: 
 ```python
-from checks import PreCourseAssignment
-A = PreCourseAssignment.setup(ident = 'asd123', server_ip = '1.2.3.4:5')
+from checks import Assignment0
+A = Assignment0.setup(ident = 'asd123', server_ip = '1.2.3.4:5')
 ```
 Just like when offline we can now submit answers to the server by running 
 ```python 
@@ -36,6 +36,12 @@ def add(x,y):
     return x + y
 ```
 which pushes the students status to the server. On the server a little dash app can be set up to auto update a barchart showing the progress of each student. 
+
+## Known issues:
+**1)** If you got started with assignment 0 early you might have a version of `checks` in which `Assignment0` does not exist. If this is the case the line `from checks import PreCourseAssignment` should work (the name simply changed in the latest version). To update `checks` run 
+```
+pip install git+https://github.com/Kristianuruplarsen/checks --upgrade
+```
 
 
 ## Building an assignment
